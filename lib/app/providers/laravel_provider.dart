@@ -199,7 +199,7 @@ class LaravelApiClient extends GetxService with ApiClient {
       'sortedBy': 'desc',
     };
     Uri _uri =
-        getApiBaseUri("addresses").replace(queryParameters: _queryParameters);
+    getApiBaseUri("addresses").replace(queryParameters: _queryParameters);
     Get.log(_uri.toString());
     var response = await _httpClient.getUri(_uri, options: _optionsCache);
     if (response.data['success'] == true) {
@@ -1240,9 +1240,9 @@ class LaravelApiClient extends GetxService with ApiClient {
   // }
   //
   Future<Setting> getSettings() async {
-    // Uri _uri = getApiBaseUri("settings");
-    Uri _uri = Uri.parse("https://pro.assign.co.nz/public/api/user/settings");
+    Uri _uri = Uri.parse("https://pro.assign.co.nz/admin/settings");
     Get.log(_uri.toString());
+    Get.log(getApiBaseUri("settings").toString());
     var response = await _httpClient.getUri(_uri, options: _optionsNetwork);
     if (response.statusCode == 200) {
       return Setting.fromJson(response.data['data']);
