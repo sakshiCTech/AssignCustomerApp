@@ -4,6 +4,7 @@ class Routes {
   static const FORGOT_PASSWORD = '/forgot_password';
   static const PHONE_VERIFICATION = '/phone_verification';
 
+  static const ON_BOARDING = '/on_boarding';
   static const ROOT = '/root';
   static const RATING = '/rating';
   static const CHAT = '/chat';
