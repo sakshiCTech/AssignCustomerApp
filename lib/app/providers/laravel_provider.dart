@@ -5,6 +5,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:get/get.dart';
+import 'package:home_services/app/modules/home/models/category_model.dart';
+import 'package:home_services/app/modules/home/models/slide_model.dart';
 
 import '../../common/uuid.dart';
 import '../models/address_model.dart';
@@ -74,16 +76,16 @@ class LaravelApiClient extends GetxService with ApiClient {
     }
   }
 
-  // Future<List<Slide>> getHomeSlider() async {
-  //   Uri _uri = getApiBaseUri("slides");
-  //   Get.log(_uri.toString());
-  //   var response = await _httpClient.getUri(_uri, options: _optionsCache);
-  //   if (response.data['success'] == true) {
-  //     return response.data['data'].map<Slide>((obj) => Slide.fromJson(obj)).toList();
-  //   } else {
-  //     throw new Exception(response.data['message']);
-  //   }
-  // }
+  Future<List<Slide>> getHomeSlider() async {
+    Uri _uri = getApiBaseUri("user/banner");
+    Get.log(_uri.toString());
+    var response = await _httpClient.getUri(_uri, options: _optionsCache);
+    if (response.statusCode == 200) {
+      return response.data.map<Slide>((obj) => Slide.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.data['message']);
+    }
+  }
 
   Future<User> getUser(User user) async {
     if (!authService.isAuth) {
@@ -692,22 +694,17 @@ class LaravelApiClient extends GetxService with ApiClient {
   //   }
   // }
   //
-  // Future<List<Category>> getAllParentCategories() async {
-  //   const _queryParameters = {
-  //     'parent': 'true',
-  //     'orderBy': 'order',
-  //     'sortBy': 'asc',
-  //   };
-  //   Uri _uri = getApiBaseUri("categories").replace(queryParameters: _queryParameters);
-  //   Get.log(_uri.toString());
-  //   var response = await _httpClient.getUri(_uri, options: _optionsCache);
-  //   if (response.data['success'] == true) {
-  //     return response.data['data'].map<Category>((obj) => Category.fromJson(obj)).toList();
-  //   } else {
-  //     throw new Exception(response.data['message']);
-  //   }
-  // }
-  //
+  Future<List<Category>> getAllParentCategories() async {
+    Uri _uri = getApiBaseUri("user/category");
+    Get.log(_uri.toString());
+    var response = await _httpClient.getUri(_uri, options: _optionsCache);
+    if (response.statusCode == 200) {
+      return response.data.map<Category>((obj) => Category.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.data['message']);
+    }
+  }
+
   // Future<List<Category>> getSubCategories(String categoryId) async {
   //   final _queryParameters = {
   //     'search': "parent_id:$categoryId",
