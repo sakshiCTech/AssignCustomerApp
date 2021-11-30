@@ -1,6 +1,6 @@
 import 'package:get/get.dart' show GetPage, Transition;
+import '../modules/root/root_middleware.dart';
 import '../modules/on_boarding/on_boarding_binding.dart';
-import '../modules/on_boarding/on_boarding_middleware.dart';
 import '../modules/on_boarding/on_boarding_view.dart';
 import '../modules/forgot_password/forgot_password_binding.dart';
 import '../modules/forgot_password/forgot_password_view.dart';
@@ -70,15 +70,11 @@ import '../modules/register/phone_verification_view.dart';
 import 'app_routes.dart';
 
 class Theme1AppPages {
-  static const INITIAL = Routes.ON_BOARDING;
+  static const INITIAL = Routes.ROOT;
 
   static final routes = [
-    GetPage(
-        name: Routes.ON_BOARDING,
-        page: () => OnBoardingPage(),
-        binding: OnBoardingBinding(),
-        middlewares: [OnBoardingMiddleware()]),
-    GetPage(name: Routes.ROOT, page: () => RootPage(), binding: RootBinding()),
+    GetPage(name: Routes.ROOT, page: () => RootPage(), binding: RootBinding(), middlewares: [RootMiddleware()]),
+    GetPage(name: Routes.ON_BOARDING, page: () => OnBoardingPage(), binding: OnBoardingBinding()),
     // GetPage(name: Routes.RATING, page: () => RatingView(), binding: RatingBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.CHAT, page: () => ChatsView(), binding: RootBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.SETTINGS, page: () => SettingsView(), binding: SettingsBinding()),
