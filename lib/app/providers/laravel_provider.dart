@@ -1237,9 +1237,9 @@ class LaravelApiClient extends GetxService with ApiClient {
   // }
   //
   Future<Setting> getSettings() async {
-    Uri _uri = Uri.parse("https://pro.assign.co.nz/admin/settings");
+    Uri _uri = getBaseUri("admin/settings");
     Get.log(_uri.toString());
-    Get.log(getApiBaseUri("settings").toString());
+    Get.log(getBaseUrl("settings").toString());
     var response = await _httpClient.getUri(_uri, options: _optionsNetwork);
     if (response.statusCode == 200) {
       return Setting.fromJson(response.data['data']);
