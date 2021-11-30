@@ -39,7 +39,7 @@ class AuthService extends GetxService {
     await _box.remove('current_user');
   }
 
-  bool get isAuth => user.value != null;
+  bool get isAuth => user.value.accessToken != null;
 
   String get apiToken => isAuth ? user.value.accessToken : '';
 }
