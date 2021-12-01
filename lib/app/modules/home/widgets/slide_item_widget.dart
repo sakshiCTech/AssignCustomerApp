@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/ui.dart';
-import '../models/slide_model.dart';
+import '../../../models/slide_model.dart';
 import '../../../routes/app_routes.dart';
 
 class SlideItemWidget extends StatelessWidget {

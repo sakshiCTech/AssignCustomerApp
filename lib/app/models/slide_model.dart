@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import '../services/global_service.dart';
+
 class Slide {
   int id;
   String url;
@@ -17,6 +20,8 @@ class Slide {
         this.status,
         this.createdAt,
         this.updatedAt});
+
+  get imageUrl => Get.find<GlobalService>().baseUrl + 'public/storage/' + url;
 
   Slide.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -41,6 +46,4 @@ class Slide {
     data['updated_at'] = this.updatedAt;
     return data;
   }
-
-  get imageUrl => 'https://pro.assign.co.nz/$url';
 }
