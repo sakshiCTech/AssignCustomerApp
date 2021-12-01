@@ -16,9 +16,10 @@ class Routes {
   static const SETTINGS_ADDRESS_PICKER = '/settings/address_picker';
 
   static const PROFILE = '/profile';
-  static const CATEGORY = '/category';
+  // static const CATEGORY = '/category';
   static const CATEGORIES = '/categories';
-  static const SUB_CATEGORY = '/sub_category';
+  static const SUB_CATEGORIES = '/sub_category';
+  static const SERVICES = '/services';
   static const E_SERVICE = '/e_service';
   static const BOOK_E_SERVICE = '/book_e_service';
   static const BOOKING_SUMMARY = '/booking_summary';

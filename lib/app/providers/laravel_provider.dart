@@ -5,8 +5,10 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:get/get.dart';
-import 'package:home_services/app/modules/home/models/category_model.dart';
-import 'package:home_services/app/modules/home/models/slide_model.dart';
+import 'package:home_services/app/models/category_model.dart';
+import 'package:home_services/app/models/service_model.dart';
+import 'package:home_services/app/models/slide_model.dart';
+import 'package:home_services/app/models/subcategory_model.dart';
 
 import '../../common/uuid.dart';
 import '../models/address_model.dart';
@@ -705,6 +707,28 @@ class LaravelApiClient extends GetxService with ApiClient {
     }
   }
 
+  Future<List<SubCategory>> getAllSubCategories(int categoryId) async {
+    Uri _uri = getApiBaseUri("user/sub_category?parent_id=$categoryId");
+    Get.log(_uri.toString());
+    var response = await _httpClient.getUri(_uri, options: _optionsCache);
+    if (response.statusCode == 200) {
+      return response.data.map<SubCategory>((obj) => SubCategory.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.data['message']);
+    }
+  }
+
+  Future<List<Service>> getALLServices(subcategoryId) async{
+    Uri _uri = getApiBaseUri("user/service");
+    Get.log(_uri.toString());
+    var response = await _httpClient.postUri(_uri, options: _optionsCache,data: {"category_id" : subcategoryId});
+    if (response.statusCode == 200) {
+      return response.data.map<Service>((obj) => Service.fromJson(obj)).toList();
+    } else {
+      throw new Exception(response.data['message']);
+    }
+  }
+
   // Future<List<Category>> getSubCategories(String categoryId) async {
   //   final _queryParameters = {
   //     'search': "parent_id:$categoryId",
@@ -1247,6 +1271,8 @@ class LaravelApiClient extends GetxService with ApiClient {
       throw new Exception(response.data['message']);
     }
   }
+
+
 //
 // Future<List<CustomPage>> getCustomPages() async {
 //   var _queryParameters = {

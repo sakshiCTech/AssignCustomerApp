@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'models/slide_model.dart';
+import '../../models/slide_model.dart';
 import 'widgets/categories_carousel_widget.dart';
 import 'widgets/home_search_bar_widget.dart';
 import 'widgets/slide_item_widget.dart';

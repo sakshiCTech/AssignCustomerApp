@@ -23,7 +23,7 @@ class CategoriesCarouselWidget extends GetWidget<HomeLogic> {
               var _category = controller.categories.elementAt(index);
               return InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.CATEGORY, arguments: _category);
+                  Get.toNamed(Routes.SUB_CATEGORIES, arguments: _category);
                 },
                 child: Container(
                   width: 100,
@@ -56,7 +56,7 @@ class CategoriesCarouselWidget extends GetWidget<HomeLogic> {
                           //     :
                           CachedNetworkImage(
                                   fit: BoxFit.cover,
-                                  imageUrl: _category.icon,
+                                  imageUrl: _category.imageUrl,
                                   placeholder: (context, url) => Image.asset(
                                     'assets/img/loading.gif',
                                     fit: BoxFit.cover,

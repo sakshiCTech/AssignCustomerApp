@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'models/slide_model.dart';
+import '../../models/slide_model.dart';
 import 'repositories/home_repo.dart';
 import '../../../common/ui.dart';
 
-import 'models/category_model.dart';
+import '../../models/category_model.dart';
 
 class HomeLogic extends GetxController {
   final slider = <Slide>[].obs;
