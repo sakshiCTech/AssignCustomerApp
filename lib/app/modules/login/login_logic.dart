@@ -37,8 +37,9 @@ class LoginLogic extends GetxController {
           "device_type": "android",
           "device_id": "device_id"
         };
-        currentUser.value = await _userRepository.login(data);
+        User user = await _userRepository.login(data);
         await _userRepository.signInWithEmailAndPassword(email, password);
+        currentUser.value = user;
         // await Get.find<RootController>().changePage(0);
         Get.offAllNamed(Routes.ROOT);
       } catch (e) {

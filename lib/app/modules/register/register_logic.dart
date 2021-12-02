@@ -63,9 +63,10 @@ class RegisterLogic extends GetxController {
         "device_type": "android",
         "login_by": "manual"
       };
-      currentUser.value = await _userRepository.register(data);
+      User user = await _userRepository.register(data);
       await _userRepository.signUpWithEmailAndPassword(email, password);
       // await Get.find<RootController>().changePage(0);
+      currentUser.value = user;
       Get.offAllNamed(Routes.ROOT);
     } catch (e) {
       Get.back();

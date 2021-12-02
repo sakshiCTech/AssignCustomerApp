@@ -117,7 +117,12 @@ class LaravelApiClient extends GetxService with ApiClient {
     var response = await _httpClient.postUri(
       _uri,
       data: json.encode(data),
-      options: _optionsNetwork,
+      options: _optionsNetwork.copyWith(
+          headers: {"Accept": "application/json"},
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          }),
     );
     if (response.statusCode == 200) {
       return User.fromJson(response.data);
@@ -203,7 +208,7 @@ class LaravelApiClient extends GetxService with ApiClient {
       'sortedBy': 'desc',
     };
     Uri _uri =
-    getApiBaseUri("addresses").replace(queryParameters: _queryParameters);
+        getApiBaseUri("addresses").replace(queryParameters: _queryParameters);
     Get.log(_uri.toString());
     var response = await _httpClient.getUri(_uri, options: _optionsCache);
     if (response.data['success'] == true) {
@@ -701,7 +706,9 @@ class LaravelApiClient extends GetxService with ApiClient {
     Get.log(_uri.toString());
     var response = await _httpClient.getUri(_uri, options: _optionsCache);
     if (response.statusCode == 200) {
-      return response.data.map<Category>((obj) => Category.fromJson(obj)).toList();
+      return response.data
+          .map<Category>((obj) => Category.fromJson(obj))
+          .toList();
     } else {
       throw new Exception(response.data['message']);
     }
@@ -712,18 +719,23 @@ class LaravelApiClient extends GetxService with ApiClient {
     Get.log(_uri.toString());
     var response = await _httpClient.getUri(_uri, options: _optionsCache);
     if (response.statusCode == 200) {
-      return response.data.map<SubCategory>((obj) => SubCategory.fromJson(obj)).toList();
+      return response.data
+          .map<SubCategory>((obj) => SubCategory.fromJson(obj))
+          .toList();
     } else {
       throw new Exception(response.data['message']);
     }
   }
 
-  Future<List<Service>> getALLServices(subcategoryId) async{
+  Future<List<Service>> getALLServices(subcategoryId) async {
     Uri _uri = getApiBaseUri("user/service");
     Get.log(_uri.toString());
-    var response = await _httpClient.postUri(_uri, options: _optionsCache,data: {"category_id" : subcategoryId});
+    var response = await _httpClient.postUri(_uri,
+        options: _optionsCache, data: {"category_id": subcategoryId});
     if (response.statusCode == 200) {
-      return response.data.map<Service>((obj) => Service.fromJson(obj)).toList();
+      return response.data
+          .map<Service>((obj) => Service.fromJson(obj))
+          .toList();
     } else {
       throw new Exception(response.data['message']);
     }
@@ -1271,7 +1283,6 @@ class LaravelApiClient extends GetxService with ApiClient {
       throw new Exception(response.data['message']);
     }
   }
-
 
 //
 // Future<List<CustomPage>> getCustomPages() async {
