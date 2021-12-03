@@ -9,6 +9,7 @@ import 'package:home_services/app/models/category_model.dart';
 import 'package:home_services/app/models/service_model.dart';
 import 'package:home_services/app/models/slide_model.dart';
 import 'package:home_services/app/models/subcategory_model.dart';
+import 'package:home_services/common/console.dart';
 
 import '../../common/uuid.dart';
 import '../models/address_model.dart';
@@ -144,8 +145,8 @@ class LaravelApiClient extends GetxService with ApiClient {
             return status < 500;
           }),
     );
-    print("reaching");
-    print("response.data${response.data}");
+    Console.log("response.statusCode: ${response.statusCode}");
+    print("response.data: ${response.data}");
     if (response.statusCode == 201) {
       return User.fromJson(response.data);
     } else {

@@ -58,8 +58,8 @@ class RegisterLogic extends GetxController {
         "device_token":
             await Get.find<FireBaseMessagingService>().getDeviceToken(),
         "device_id": "device_id",
-        "mobile": phoneNumber,
-        "country_code": "+91",
+        "mobile": phoneNumber.substring(3, 12),
+        "country_code": phoneNumber.substring(0, 3),
         "device_type": "android",
         "login_by": "manual"
       };
