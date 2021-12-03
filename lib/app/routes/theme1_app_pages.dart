@@ -1,5 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show GetPage, Transition;
+import 'package:home_services/app/modules/book_e_service/bindings/book_e_service_binding.dart';
+import 'package:home_services/app/modules/book_e_service/views/book_e_service_view.dart';
+import 'package:home_services/app/modules/book_e_service/views/booking_summary_view.dart';
+import 'package:home_services/app/modules/settings/address_picker_view.dart';
 import '../modules/booking/booking_binding.dart';
 import '../modules/booking/booking_view.dart';
 import '../modules/e_service/bindings/e_service_binding.dart';
@@ -93,7 +97,7 @@ class Theme1AppPages {
     // GetPage(name: Routes.SETTINGS_ADDRESSES, page: () => AddressesView(), binding: SettingsBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.SETTINGS_THEME_MODE, page: () => ThemeModeView(), binding: SettingsBinding()),
     // GetPage(name: Routes.SETTINGS_LANGUAGE, page: () => LanguageView(), binding: SettingsBinding()),
-    // GetPage(name: Routes.SETTINGS_ADDRESS_PICKER, page: () => AddressPickerView()),
+    GetPage(name: Routes.SETTINGS_ADDRESS_PICKER, page: () => AddressPickerView()),
     // GetPage(name: Routes.PROFILE, page: () => ProfileView(), binding: ProfileBinding(), middlewares: [AuthMiddleware()]),
     GetPage(name: Routes.CATEGORIES, page: () => CategoriesView(), binding: CategoriesBinding()),
     GetPage(name: Routes.SUB_CATEGORIES, page: () => SubcategoryPage(), binding: SubcategoryBinding()),
@@ -117,8 +121,8 @@ class Theme1AppPages {
         page: () => PhoneVerificationView(),
         binding: RegisterBinding()),
     // GetPage(name: Routes.E_SERVICE, page: () => EServiceView(), binding: EServiceBinding(), transition: Transition.downToUp),
-    GetPage(name: Routes.BOOK_E_SERVICE, page: () => BookingPage(), binding: BookingBinding(), middlewares: [AuthMiddleware()]),
-    // GetPage(name: Routes.BOOKING_SUMMARY, page: () => BookingSummaryView(), binding: BookEServiceBinding(), middlewares: [AuthMiddleware()]),
+    GetPage(name: Routes.BOOK_E_SERVICE, page: () => BookEServiceView(), binding: BookEServiceBinding(), middlewares: [AuthMiddleware()]),
+    GetPage(name: Routes.BOOKING_SUMMARY, page: () => BookingSummaryView(), binding: BookEServiceBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.CHECKOUT, page: () => CheckoutView(), binding: CheckoutBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.CONFIRMATION, page: () => ConfirmationView(), binding: CheckoutBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.SEARCH, page: () => SearchView(), binding: RootBinding(), transition: Transition.downToUp),
