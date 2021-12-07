@@ -5,11 +5,13 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:get/get.dart';
-import 'package:home_services/app/models/category_model.dart';
-import 'package:home_services/app/models/service_model.dart';
-import 'package:home_services/app/models/slide_model.dart';
-import 'package:home_services/app/models/subcategory_model.dart';
-import 'package:home_services/common/console.dart';
+import 'auth_interceptor.dart';
+import 'redirection_interceptor.dart';
+import '../models/category_model.dart';
+import '../models/service_model.dart';
+import '../models/slide_model.dart';
+import '../models/subcategory_model.dart';
+import '../../common/console.dart';
 
 import '../../common/uuid.dart';
 import '../models/address_model.dart';
@@ -64,6 +66,8 @@ class LaravelApiClient extends GetxService with ApiClient {
       _httpClient.interceptors.add(
           DioCacheManager(CacheConfig(baseUrl: getApiBaseUrl(""))).interceptor);
     }
+    _httpClient.interceptors
+        .addAll([RedirectionInterceptor(), AuthInterceptor()]);
     return this;
   }
 
@@ -115,16 +119,8 @@ class LaravelApiClient extends GetxService with ApiClient {
   Future<User> login(Map<String, dynamic> data) async {
     Uri _uri = getApiBaseUri("user/oauth/token");
     Get.log(_uri.toString());
-    var response = await _httpClient.postUri(
-      _uri,
-      data: json.encode(data),
-      options: _optionsNetwork.copyWith(
-          headers: {"Accept": "application/json"},
-          followRedirects: false,
-          validateStatus: (status) {
-            return status < 500;
-          }),
-    );
+    var response = await _httpClient.postUri(_uri,
+        data: json.encode(data), options: _optionsNetwork);
     if (response.statusCode == 200) {
       return User.fromJson(response.data);
     } else {
@@ -135,16 +131,8 @@ class LaravelApiClient extends GetxService with ApiClient {
   Future<User> register(Map<String, dynamic> data) async {
     Uri _uri = getApiBaseUri("user/signup");
     Get.log(_uri.toString());
-    var response = await _httpClient.postUri(
-      _uri,
-      data: json.encode(data),
-      options: _optionsNetwork.copyWith(
-          headers: {"Accept": "application/json"},
-          followRedirects: false,
-          validateStatus: (status) {
-            return status < 500;
-          }),
-    );
+    var response = await _httpClient.postUri(_uri,
+        data: json.encode(data), options: _optionsNetwork);
     Console.log("response.statusCode: ${response.statusCode}");
     print("response.data: ${response.data}");
     if (response.statusCode == 201) {
