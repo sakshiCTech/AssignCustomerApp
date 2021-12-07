@@ -1,39 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../models/service_model.dart';
+import '../../../repositories/booking_repository.dart';
 
 import '../../../../common/ui.dart';
 import '../../../models/address_model.dart';
 import '../../../models/booking_model.dart';
+
 // import '../../../models/coupon_model.dart';
 // import '../../../models/e_service_model.dart';
 import '../../../models/option_model.dart';
+
 // import '../../../repositories/booking_repository.dart';
 import '../../../repositories/setting_repository.dart';
 import '../../../routes/app_routes.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/settings_service.dart';
+
 // import '../../bookings/controllers/bookings_controller.dart';
 // import '../../global_widgets/tab_bar_widget.dart';
 
 class BookEServiceController extends GetxController {
   final scheduled = false.obs;
   final booking = Booking().obs;
+  final _eService = Service().obs;
   final addresses = <Address>[].obs;
-  // BookingRepository _bookingRepository;
+  BookingRepository _bookingRepository;
   SettingRepository _settingRepository;
 
   Address get currentAddress => Get.find<SettingsService>().address.value;
 
   BookEServiceController() {
-    // _bookingRepository = BookingRepository();
+    _bookingRepository = BookingRepository();
     _settingRepository = SettingRepository();
   }
 
   @override
   void onInit() async {
     super.onInit();
-    // final _eService = (Get.arguments['eService'] as EService);
+    _eService.value = (Get.arguments['eService'] as Service);
     final _options = (Get.arguments['options'] as List<Option>);
     final _quantity = (Get.arguments['quantity'] as int);
     this.booking.value = Booking(
@@ -48,7 +55,7 @@ class BookEServiceController extends GetxController {
       user: Get.find<AuthService>().user.value,
       // coupon: new Coupon(),
     );
-    await getAddresses();
+    // await getAddresses();
   }
 
   @override
@@ -62,7 +69,8 @@ class BookEServiceController extends GetxController {
 
   TextStyle getTextTheme(bool selected) {
     if (selected) {
-      return Get.textTheme.bodyText2.merge(TextStyle(color: Get.theme.primaryColor));
+      return Get.textTheme.bodyText2
+          .merge(TextStyle(color: Get.theme.primaryColor));
     }
     return Get.textTheme.bodyText2;
   }
@@ -75,9 +83,28 @@ class BookEServiceController extends GetxController {
   }
 
   void createBooking() async {
+    final dateFormat = new DateFormat('yyyy-MM-dd');
+    final timeFormat = new DateFormat('hh:mm:ss');
     try {
       this.booking.value.address = currentAddress;
       Get.log(booking.value.toString());
+      Map<String, dynamic> data = {
+        "s_latitude": "19.20158800",
+        "s_longitude": "72.86308680",
+        "d_latitude": currentAddress.latitude,
+        "d_longitude": currentAddress.longitude,
+        "service_type": _eService.value.id,
+        "use_wallet": "354",
+        "payment_mode": "CASH",
+        "card_id": "1234567890123456",
+        "schedule_date": dateFormat.format(DateTime.now()),
+        "schedule_time": timeFormat.format(DateTime.now()),
+        "braintree_nonce": "",
+        "app": "app",
+        "promo_code": "FIRST100"
+      };
+
+      await _bookingRepository.add(data);
       // await _bookingRepository.add(booking.value);
       // Get.find<BookingsController>().currentStatus.value = Get.find<BookingsController>().getStatusByOrder(1).id;
       // if (Get.isRegistered<TabBarController>(tag: 'bookings')) {
@@ -142,7 +169,8 @@ class BookEServiceController extends GetxController {
     );
     if (picked != null) {
       booking.update((val) {
-        val.bookingAt = DateTime(picked.year, picked.month, picked.day, val.bookingAt.hour, val.bookingAt.minute);
+        val.bookingAt = DateTime(picked.year, picked.month, picked.day,
+            val.bookingAt.hour, val.bookingAt.minute);
         ;
       });
     }
@@ -158,7 +186,9 @@ class BookEServiceController extends GetxController {
     );
     if (picked != null) {
       booking.update((val) {
-        val.bookingAt = DateTime(booking.value.bookingAt.year, booking.value.bookingAt.month, booking.value.bookingAt.day).add(Duration(minutes: picked.minute + picked.hour * 60));
+        val.bookingAt = DateTime(booking.value.bookingAt.year,
+                booking.value.bookingAt.month, booking.value.bookingAt.day)
+            .add(Duration(minutes: picked.minute + picked.hour * 60));
       });
     }
   }

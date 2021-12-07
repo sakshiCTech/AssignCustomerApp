@@ -721,6 +721,8 @@ class LaravelApiClient extends GetxService with ApiClient {
     Get.log(_uri.toString());
     var response = await _httpClient.postUri(_uri,
         options: _optionsCache, data: {"category_id": subcategoryId});
+
+    /// This is SubCategoryId not categoryId
     if (response.statusCode == 200) {
       return response.data
           .map<Service>((obj) => Service.fromJson(obj))
@@ -1264,10 +1266,23 @@ class LaravelApiClient extends GetxService with ApiClient {
   Future<Setting> getSettings() async {
     Uri _uri = getBaseUri("admin/settings");
     Get.log(_uri.toString());
-    Get.log(getBaseUrl("settings").toString());
     var response = await _httpClient.getUri(_uri, options: _optionsNetwork);
+    Console.log(response.data);
     if (response.statusCode == 200) {
       return Setting.fromJson(response.data['data']);
+    } else {
+      throw new Exception(response.data['message']);
+    }
+  }
+
+  Future addBooking(Map<String, dynamic> data) async {
+    Uri _uri = getApiBaseUri("user/send/request");
+    Get.log(_uri.toString());
+    var response =
+        await _httpClient.postUri(_uri, options: _optionsCache, data: data);
+    Console.log(response.data);
+    if (response.statusCode == 200) {
+      return response.data['message'];
     } else {
       throw new Exception(response.data['message']);
     }

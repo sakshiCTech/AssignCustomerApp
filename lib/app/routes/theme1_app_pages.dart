@@ -3,6 +3,8 @@ import 'package:get/get.dart' show GetPage, Transition;
 import 'package:home_services/app/modules/book_e_service/bindings/book_e_service_binding.dart';
 import 'package:home_services/app/modules/book_e_service/views/book_e_service_view.dart';
 import 'package:home_services/app/modules/book_e_service/views/booking_summary_view.dart';
+import 'package:home_services/app/modules/checkout/checkout_binding.dart';
+import 'package:home_services/app/modules/checkout/confirmation_view.dart';
 import 'package:home_services/app/modules/settings/address_picker_view.dart';
 import '../modules/booking/booking_binding.dart';
 import '../modules/booking/booking_view.dart';
@@ -124,7 +126,7 @@ class Theme1AppPages {
     GetPage(name: Routes.BOOK_E_SERVICE, page: () => BookEServiceView(), binding: BookEServiceBinding(), middlewares: [AuthMiddleware()]),
     GetPage(name: Routes.BOOKING_SUMMARY, page: () => BookingSummaryView(), binding: BookEServiceBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.CHECKOUT, page: () => CheckoutView(), binding: CheckoutBinding(), middlewares: [AuthMiddleware()]),
-    // GetPage(name: Routes.CONFIRMATION, page: () => ConfirmationView(), binding: CheckoutBinding(), middlewares: [AuthMiddleware()]),
+    GetPage(name: Routes.CONFIRMATION, page: () => ConfirmationView(), binding: CheckoutBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.SEARCH, page: () => SearchView(), binding: RootBinding(), transition: Transition.downToUp),
     // GetPage(name: Routes.NOTIFICATIONS, page: () => NotificationsView(), binding: NotificationsBinding(), middlewares: [AuthMiddleware()]),
     // GetPage(name: Routes.FAVORITES, page: () => FavoritesView(), binding: FavoritesBinding(), middlewares: [AuthMiddleware()]),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_services/app/models/service_model.dart';
+import '../../../models/service_model.dart';
 
 import '../../../../common/ui.dart';
 import '../../../models/option_group_model.dart';
