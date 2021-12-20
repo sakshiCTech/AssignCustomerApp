@@ -100,6 +100,7 @@ class OnBoardingPage extends GetView<OnBoardingLogic> {
               unSelectedIndicatorColor: Get.theme.colorScheme.secondary,
               selectedIndicatorColor: Get.theme.colorScheme.primary,
               doneWidget: Material(
+                borderRadius: BorderRadius.circular(40),
                 child: InkWell(
                   splashColor: Get.theme.colorScheme.secondary,
                   onTap: controller.completeOnBoarding,
@@ -113,6 +114,7 @@ class OnBoardingPage extends GetView<OnBoardingLogic> {
                 ),
               ),
               skipWidget: Material(
+                borderRadius: BorderRadius.circular(40),
                 child: InkWell(
                   splashColor: Get.theme.colorScheme.secondary,
                   onTap: controller.completeOnBoarding,

@@ -101,7 +101,8 @@ class BookEServiceController extends GetxController {
         "schedule_time": timeFormat.format(DateTime.now()),
         "braintree_nonce": "",
         "app": "app",
-        "promo_code": "FIRST100"
+        "promo_code": "FIRST100",
+        "user_hint": ""
       };
 
       await _bookingRepository.add(data);
